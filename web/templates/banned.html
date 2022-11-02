@@ -1,0 +1,17 @@
+{{ block "head" . }}
+{{ end }}
+
+<body class="border-top-wide border-primary d-flex flex-column theme-dark">
+<div class="page page-center">
+    <div class="container-tight py-4">
+        <div class="empty">
+            <p class="empty-title">Banned</p>
+            <p class="empty-subtitle text-muted">
+                {{.BannedCause}}
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

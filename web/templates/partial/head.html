@@ -1,0 +1,39 @@
+{{define "head"}}
+<!DOCTYPE html>
+
+<html lang="en" class="dark-mode">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>the Cheat Company</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/js/tabler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-flags.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-payments.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-vendors.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
+    <style>
+        .dataTable-wrapper.no-footer .dataTable-container {
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .dataTable-table > thead > tr > th {
+            vertical-align: bottom;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+    </style>
+</head>
+{{ end }}

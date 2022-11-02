@@ -1,0 +1,152 @@
+{{ block "head" . }}
+{{ end }}
+
+<body class="theme-dark">
+
+<main class="page-wrapper">
+
+    {{ block "header" . }}
+    {{ end }}
+
+    <div class="page-wrapper">
+        <div class="page-body">
+    <section class="container-xl">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <a href="/admin" class="btn bg-azure w-100 mb-2">Statistics</a>
+                <a href="/admin/settings" class="btn bg-azure-lt w-100 mb-2">Settings</a>
+                <a href="/admin/actions" class="btn bg-azure-lt w-100 mb-2">Fast Actions</a>
+                <a href="/admin/billings" class="btn bg-azure-lt w-100 mb-2">Billing / Checks</a>
+                <a href="/admin/promo" class="btn bg-azure-lt w-100 mb-2">Promo</a>
+                <a href="/admin/user" class="btn bg-azure-lt w-100 mb-2">Users</a>
+                <a href="/admin/bannedUsers" class="btn bg-azure-lt w-100 mb-2">Banned Users</a>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <div class="card card-raised">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{.Registered}}</h2>
+                                        <p class="card-text">Registered</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <div class="card card-raised">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{.LumenSubscribed}}</h2>
+                                        <p class="card-text">Subscribed</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <div class="card card-raised">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{.LumenUnsubscribed}}</h2>
+                                        <p class="card-text">Without Subscription</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Statistics</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-demo-line" class="chart-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    </div>
+</main>
+
+</body>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('chart-demo-line'), {
+            chart: {
+                type: "area",
+                fontFamily: 'inherit',
+                height: 240,
+                parentHeightOffset: 0,
+                toolbar: {
+                    show: false,
+                },
+                animations: {
+                    enabled: false
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            fill: {
+                opacity: .16,
+                type: 'solid'
+            },
+            stroke: {
+                width: 2,
+                lineCap: "round",
+                curve: "smooth",
+            },
+            series: [{
+                    name: "Injections",
+                    data: [{{ range.CountInjections }}
+                {{.}},
+                {{ end }}]
+                },
+                {
+                    name: "Authorizations",
+                    data:[{{ range.CountAuthorizations }}
+                    {{.}},
+                    {{ end }}]
+                },
+                {
+                    name: "Registrations",
+                    data: [{{ range.CountRegistrations }}
+                    {{.}},
+                    {{ end }}]
+                }],
+            grid: {
+                padding: {
+                    top: -20,
+                    right: 0,
+                    left: -4,
+                    bottom: -4
+                },
+                strokeDashArray: 4,
+            },
+            xaxis: {
+                labels: {
+                    padding: 0,
+                },
+                tooltip: {
+                    enabled: false
+                },
+                axisBorder: {
+                    show: false,
+                },
+                type: 'text',
+            },
+            yaxis: {
+                labels: {
+                    padding: 4
+                },
+            },
+            labels: [
+                '7 days ago', '6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', '1 day ago', 'Today'
+            ],
+            colors: ["#a55eea", "#5eba00", "#206bc4"]
+        })).render();
+    });
+</script>
+
+</html>

@@ -1,0 +1,100 @@
+{{ block "head" . }}
+{{ end }}
+
+<style>
+    .banner {
+        width: 100%;
+        height: 60vh;
+        background: #1E293B url('/assets/bg.png');
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body class="theme-dark">
+    <div class="page">
+        {{ block "header" . }}
+        {{ end }}
+        <div class="banner">
+            <h1><img src="/assets/biglogo.svg" width="300" height="500" alt="Tabler"></h1>
+        </div>
+
+        <div class="container my-4">
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card bg-primary">
+                        <div class="card-stamp">
+                            <div class="card-stamp-icon bg-white text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>
+                            </div>
+                        </div>
+                        {{ if eq .CurrentLanguage "ru" }}
+                        <div class="ribbon bg-blue">{{.ApplicationConfig.Month}} рублей</div>
+                        {{ else }}
+                        <div class="ribbon bg-blue">{{.ApplicationConfig.MonthEuro}} euro</div>
+                        {{ end }}
+                        <div class="card-body">
+                            <h3 class="card-title">{{ (call .Language "month") }}</h3>
+                            <p>{{ (call .Language "description") }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/profile" class="btn btn-primary">{{ (call .Language "buy") }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card bg-primary">
+                        <div class="card-stamp">
+                            <div class="card-stamp-icon bg-white text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>
+                            </div>
+                        </div>
+                        {{ if eq .CurrentLanguage "ru" }}
+                        <div class="ribbon bg-blue">{{.ApplicationConfig.Month3}} рублей</div>
+                        {{ else }}
+                        <div class="ribbon bg-blue">{{.ApplicationConfig.Month3Euro}} euro</div>
+                        {{ end }}
+                        <div class="card-body">
+                            <h3 class="card-title">{{ (call .Language "3month") }}</h3>
+                            <p>{{ (call .Language "description3") }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/profile" class="btn btn-primary">{{ (call .Language "buy") }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+        <div class="container-xl">
+            <div class="row text-center align-items-center flex-row-reverse">
+                <div class="col-lg-auto ms-lg-auto">
+                    <ul class="list-inline list-inline-dots mb-0">
+                        <li class="list-inline-item">
+                            <a>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>
+                                {{ (call .Language "weloveyou") }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                    <ul class="list-inline list-inline-dots mb-0">
+                        <li class="list-inline-item">
+                            Copyright © 2022
+                            <a href="ru" class="link-secondary">cheat.company</a>.
+                            All rights reserved.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{{ block "head" . }}
+{{ end }}
+
+<body class="theme-dark">
+
+<main class="page-wrapper">
+
+    {{ block "header" . }}
+    {{ end }}
+
+    <div class="page-wrapper">
+        <div class="page-body">
+            <section class="container-xl">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <a href="/admin" class="btn bg-azure-lt w-100 mb-2">Statistics</a>
+                <a href="/admin/settings" class="btn bg-azure-lt w-100 mb-2">Settings</a>
+                <a href="/admin/actions" class="btn bg-azure-lt w-100 mb-2">Fast Actions</a>
+                <a href="/admin/billings" class="btn bg-azure-lt w-100 mb-2">Billing / Checks</a>
+                <a href="/admin/promo" class="btn bg-azure-lt w-100 mb-2">Promo</a>
+                <a href="/admin/user" class="btn bg-azure-lt w-100 mb-2">Users</a>
+                <a href="/admin/bannedUsers" class="btn bg-azure w-100 mb-2">Banned Users</a>
+            </div>
+            <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter" id="datatablesSimple">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Banned Cause</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{ range .Users }}
+                                    <tr>
+                                        <th scope="row">{{.ID}}</th>
+                                        <td><a href="/admin/userEdit/{{.Username}}">{{.Username}}</a></td>
+                                        <td>{{.BannedWhy}}</td>
+                                    </tr>
+                                    {{ end }}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    </div>
+</main>
+
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        const datatablesSimple = document.getElementById('datatablesSimple');
+
+        if (datatablesSimple) {
+            new simpleDatatables.DataTable(datatablesSimple, {
+                header: true,
+                hiddenHeader: true,
+                footer: false,
+                perPage: 30,
+                paging: true,
+                perPageSelect: [10, 30, 100],
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

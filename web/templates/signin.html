@@ -1,0 +1,48 @@
+{{ block "head" . }}
+{{ end }}
+
+<body class="border-top-wide border-primary d-flex flex-column theme-dark">
+<div class="page page-center">
+    <div class="container-tight py-4">
+        <form class="card card-md" action="/auth/actions/sign-in" method="POST">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">{{ (call .Language "authorization") }}</h2>
+
+                {{ if eq .Error "user_doesnt_exist" }}
+                <div class="alert alert-danger mb-5" role="alert">
+                    {{ (call .Language "user_doesnt_exist") }}
+                </div>
+                {{ end }}
+                {{ if eq .Error "wrong_fields" }}
+                <div class="alert alert-danger mb-5" role="alert">
+                    {{ (call .Language "wrong_fields") }}
+                </div>
+                {{ end }}
+                {{ if eq .Error "wrong_password" }}
+                <div class="alert alert-danger mb-5" role="alert">
+                    {{ (call .Language "wrong_password") }}
+                </div>
+                {{ end }}
+
+                <div class="mb-3">
+                    <label class="form-label">{{ (call .Language "username") }}</label>
+                    <input type="text" class="form-control" name="login" placeholder="{{ (call .Language "username") }}" autocomplete="off">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{{ (call .Language "password") }}</label>
+                    <input type="password" class="form-control" name="password" placeholder="{{ (call .Language "password") }}" autocomplete="off">
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary w-100">{{ (call .Language "signin") }}</button>
+                </div>
+            </div>
+        </form>
+        <div class="text-center text-muted mt-3">
+            {{ (call .Language "dont_have_account") }} <a href="/auth/sign-up">{{ (call .Language "signup") }}</a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

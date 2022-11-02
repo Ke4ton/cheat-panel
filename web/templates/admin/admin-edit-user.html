@@ -1,0 +1,135 @@
+{{ block "head" . }}
+{{ end }}
+
+<body class="theme-dark">
+
+<main class="page-wrapper">
+
+    {{ block "header" . }}
+    {{ end }}
+
+    <div class="page-wrapper">
+        <div class="page-body">
+            <section class="container-xl">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <a href="/admin" class="btn bg-azure-lt w-100 mb-2">Statistics</a>
+                <a href="/admin/settings" class="btn bg-azure-lt w-100 mb-2">Settings</a>
+                <a href="/admin/actions" class="btn bg-azure-lt w-100 mb-2">Fast Actions</a>
+                <a href="/admin/billings" class="btn bg-azure-lt w-100 mb-2">Billing / Checks</a>
+                <a href="/admin/promo" class="btn bg-azure-lt w-100 mb-2">Promo</a>
+                <a href="/admin/user" class="btn bg-azure w-100 mb-2">Edit {{.EditUser.Username}}</a>
+                <a href="/admin/user" class="btn bg-azure-lt w-100 mb-2">Users</a>
+                <a href="/admin/bannedUsers" class="btn bg-azure-lt w-100 mb-2">Banned Users</a>
+            </div>
+            <div class="col-md-9">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <li class="nav-item">
+                            <a href="#edit" class="nav-link justify-content-center active" data-bs-toggle="tab" role="tab">{{.EditUser.Username}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#logs" class="nav-link justify-content-center" data-bs-toggle="tab" role="tab">Logs</a>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card card-raised">
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <form class="tab-pane fade show active" id="edit" role="tabpanel" method="post" action="/admin/actions/updateUser/{{.EditUser.Username}}">
+                                            <div class="mb-3">
+                                                <label class="form-label">Subscription</label>
+                                                <input class="form-control" type="text" name="Subscription" value="{{.EditUser.Subscription.Format "02/01/2006 15:04"}}">
+                                            </div>
+                                            <hr class="mb-3">
+                                            <div class="mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input class="form-control" type="text" name="Email" value="{{.EditUser.Email}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Referrer</label>
+                                                <input class="form-control" type="text" name="Referrer" value="{{.EditUser.Referrer}}">
+                                            </div>
+
+                                            {{ if ne .EditUser.Admin true }}
+                                            <hr class="mb-3">
+                                            <div class="form-check form-switch mb-4">
+                                                <input type="checkbox" class="form-check-input" id="customSwitch1" name="Banned"
+                                                       {{ if .EditUser.Banned }}
+                                                       checked
+                                                       {{ end }}
+                                                       value="on"
+                                                >
+                                                <label class="form-check-label" for="customSwitch1">Ban</label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label>Banned Cause</label>
+                                                <input class="form-control" type="text" name="BannedWhy" value="{{.EditUser.BannedWhy}}">
+                                            </div>
+                                            {{ end }}
+                                            <hr class="mb-3">
+                                            <div class="mb-3">
+                                                <label class="form-label">HardwareID</label>
+                                                <input class="form-control" type="text" name="HardwareID" value="{{.EditUser.HardwareID}}">
+                                            </div>
+                                            <button class="btn btn-primary w-100" type="submit">Update</button>
+                                        </form>
+                                        <div class="tab-pane fade table-responsive" id="logs" role="tabpanel">
+                                            <table class="table table-vcenter">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">IP / Country / City</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Message</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{ range .UserLogs }}
+                                                <tr>
+                                                    <th style="font-size: 10px">{{.IP}} / {{.Country}} / {{.City}}</th>
+                                                    <td style="font-size: 10px">{{.CreatedAt.Format "02/01/2006 15:04"}}</td>
+                                                    <td style="font-size: 10px">{{.Message}}</td>
+                                                </tr>
+                                                {{ end }}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    </div>
+</main>
+
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        const datatablesSimple = document.getElementById('datatablesSimple');
+
+        if (datatablesSimple) {
+            new simpleDatatables.DataTable(datatablesSimple, {
+                header: true,
+                hiddenHeader: true,
+                footer: false,
+                perPage: 30,
+                paging: true,
+                perPageSelect: [10, 30, 100],
+                labels: {
+                    placeholder: "Поиск", // The search input placeholder
+                    perPage: "{select} элементов на странице", // per-page dropdown label
+                    noRows: "Записи не найдены", // Message shown when there are no records to show
+                    info: "Показываем {start} до {end} из {rows} записей" //
+                },
+
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
